@@ -1,0 +1,28 @@
+.oggetto {
+  background-color: white;
+  color: white;
+  text-align: center;
+  border-width: 1px;
+  border: solid black;
+  position: absolute;
+}
+* {
+  text-decoration: none !important;
+  background-color: beige;
+}
+
+.ClientsCounter {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  color: black;
+  bottom: 10px;
+  height: 100px;
+  width: 150px;
+}
+#startButton {
+}
+#timerDisplay {
+}
+#errorMessage {
+}
