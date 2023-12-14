@@ -38,7 +38,9 @@ let clients = [];
 let colori = ["black", "green", "blue", "red"];
 
 let timer;
-let timerDuration = 60; // Durata in secondi del timer
+let timerDuration = 20; // Durata in secondi del timer
+
+let clientElements = {};
 
 const ws_server = new Server({ server });
 
@@ -56,7 +58,7 @@ function startTimer() {
 
     if (counter < 0) {
       clearInterval(timer);
-      checkWinner();
+      determineWinner();
     }
   }, 1000);
 }
@@ -76,6 +78,24 @@ function broadcastTimer(seconds) {
   }
 }
 
+function determineWinner() {
+  let winnerID = null;
+  let maxElements = -1;
+
+  // Itera attraverso tutti i clientElements per trovare il vincitore
+  for (const [clientID, elements] of Object.entries(clientElements)) {
+    if (elements > maxElements) {
+      maxElements = elements;
+      winnerID = clientID;
+    }
+  }
+
+  // Invia un messaggio indicando il vincitore a tutti i client
+  const winnerMessage = JSON.stringify({ winnerID, tipo: "winner" });
+  ws_server.clients.forEach((client) => {
+    client.send(winnerMessage);
+  });
+}
 //------Connessione----------------------------------
 ws_server.on("connection", (ws) => {
   quanti++;
@@ -134,12 +154,23 @@ ws_server.on("connection", (ws) => {
   ws.on("message", function (message) {
     const arriva = JSON.parse(message);
 
-    if (arriva.startTimer) {
+    if (arriva && arriva.startTimer) {
       startTimer();
+
+      // Invia un messaggio solo al client che ha avviato il timer
+      const timerStartedData = JSON.stringify({
+        timerStarted: true,
+        tipo: "timer",
+      });
+      ws.send(timerStartedData);
     }
 
-    if (arriva && arriva.manda) {
+    if (arriva && arriva.manda && arriva.manda.pos !== undefined) {
       const i = arriva.manda.pos;
+
+      // Aggiorna il numero di elementi posseduti dal client
+      clientElements[ws.id] = clientElements[ws.id] || 0;
+      clientElements[ws.id] += 1;
 
       let position = {
         index: i,

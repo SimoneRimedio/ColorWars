@@ -49,6 +49,10 @@ webSocket.onmessage = (event) => {
     if (data.startTimer) {
       hideStartButton();
     }
+  } else if (data.tipo === "winner" && data.winnerID) {
+    const winnerDisplay = document.getElementById("winnerDisplay");
+    winnerDisplay.textContent = "Il giocatore " + data.winnerID + " ha vinto!";
+    winnerDisplay.style.display = "block";
   }
 };
 
