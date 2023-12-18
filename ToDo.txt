@@ -1,4 +1,3 @@
 
-visualizzare quanti client
 visualizzare quale client si è
 css

@@ -1,101 +1,18 @@
+// server.js
 const WebSocket = require("ws");
 const http = require("http");
-const fs = require("fs");
-const path = require("path");
-
-const server = http.createServer((req, res) => {
-  let filePath = req.url === "/" ? "./public/index.html" : `./public${req.url}`;
-
-  const extname = String(path.extname(filePath)).toLowerCase();
-  const contentType = {
-    ".html": "text/html",
-    ".css": "text/css",
-    ".js": "text/javascript",
-  };
-
-  const contentTypeHeader = contentType[extname] || "application/octet-stream";
-
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.end("File not found!");
-    } else {
-      res.writeHead(200, { "Content-Type": contentTypeHeader });
-      res.end(data);
-    }
-  });
-});
+const { serverFile } = require("");
+const { handleConnection, handleMessage, handleClose } = require("");
+const { startTimer, broadcastTimer, determineWinner } = require("");
+const { addClient, removeClient } = require("");
 
 server.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 
 const { Server } = require("ws");
-
-let quanti = 0;
-let maxClients = 4;
-let clients = [];
-let colori = ["black", "green", "blue", "red"];
-
-let timer;
-let timerDuration = 20; // Durata in secondi del timer
-
-let clientElements = {};
-
 const ws_server = new Server({ server });
 
-function startTimer() {
-  let counter = timerDuration;
-
-  // Invia il valore iniziale del timer ai client
-  broadcastTimer(counter);
-
-  timer = setInterval(function () {
-    counter--;
-
-    // Invia il valore aggiornato del timer ai client
-    broadcastTimer(counter);
-
-    if (counter < 0) {
-      clearInterval(timer);
-      determineWinner();
-    }
-  }, 1000);
-}
-
-function broadcastTimer(seconds) {
-  // Invia il valore del timer a tutti i client
-  const data = JSON.stringify({ timer: seconds, tipo: "timer" });
-  ws_server.clients.forEach((client) => {
-    client.send(data);
-  });
-  // Se il timer è stato avviato, invia un messaggio "startTimer"
-  if (seconds === timerDuration) {
-    const startTimerData = JSON.stringify({ startTimer: true, tipo: "timer" });
-    ws_server.clients.forEach((client) => {
-      client.send(startTimerData);
-    });
-  }
-}
-
-function determineWinner() {
-  let winnerID = null;
-  let maxElements = -1;
-
-  // Itera attraverso tutti i clientElements per trovare il vincitore
-  for (const [clientID, elements] of Object.entries(clientElements)) {
-    if (elements > maxElements) {
-      maxElements = elements;
-      winnerID = clientID;
-    }
-  }
-
-  // Invia un messaggio indicando il vincitore a tutti i client
-  const winnerMessage = JSON.stringify({ winnerID, tipo: "winner" });
-  ws_server.clients.forEach((client) => {
-    client.send(winnerMessage);
-  });
-}
 //------Connessione----------------------------------
 ws_server.on("connection", (ws) => {
   quanti++;
@@ -113,20 +30,8 @@ ws_server.on("connection", (ws) => {
   ws.id = quanti;
   clients.push(ws.id);
   console.log("Client " + ws.id + " connected!");
-  let s = "";
-  for (z = 0; z < clients.length; z++) s = s + clients[z] + " ";
-  console.log("clients : " + s);
 
-  let position = {
-    quanti: clients.length,
-    chi: ws.id,
-    tipo: 0,
-  };
-
-  let data = JSON.stringify({ position: position });
-  ws_server.clients.forEach((client) => {
-    client.send(data);
-  });
+  ws.send(JSON.stringify({ clientID: ws.id, tipo: "clientID" }));
 
   //--------------Disconnessione-------------------------
   ws.on("close", () => {
@@ -136,18 +41,6 @@ ws_server.on("connection", (ws) => {
       }
     }
     console.log("Client " + ws.id + " has disconnected!");
-    s = "";
-    for (z = 0; z < clients.length; z++) s = s + clients[z] + " ";
-    console.log("clients : " + s);
-
-    let position = {
-      quanti: clients.length,
-      tipo: 1,
-    };
-    const data = JSON.stringify({ position: position });
-    ws_server.clients.forEach((client) => {
-      client.send(data);
-    });
   });
 
   //--------------Messaggio--------------------------

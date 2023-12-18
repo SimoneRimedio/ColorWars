@@ -25,16 +25,6 @@ webSocket.onmessage = (event) => {
 
     // Puoi aggiungere ulteriori azioni o stili CSS a seconda delle tue esigenze
   } else if (data.position) {
-    if (data.position.tipo == 0) {
-      let n = data.position.quanti;
-      el2.textContent = n;
-    }
-
-    if (data.position.tipo == 1) {
-      let n = data.position.quanti;
-      el2.textContent = n;
-    }
-
     if (data.position.tipo == 2) {
       let i = data.position.index;
       colore = data.position.colore;
@@ -55,7 +45,14 @@ webSocket.onmessage = (event) => {
     const winnerDisplay = document.getElementById("winnerDisplay");
     winnerDisplay.textContent = "Il giocatore " + data.winnerID + " ha vinto!";
     winnerDisplay.style.display = "block";
+  } else if (data.clientID && data.tipo === "clientID") {
+    // Se ricevi l'ID del client dal server, memorizzalo nella variabile clientID
+    clientID = data.clientID;
+
+    // Aggiorna il display del clientID in el2
+    el2.textContent = `Player ${clientID}`;
   }
+
   // Nuova condizione per gestire la matrice
   if (gameStarted && !isClientDisabled) {
     // Se il gioco è iniziato e il client non è disabilitato, rendi visibile e cliccabile la matrice
