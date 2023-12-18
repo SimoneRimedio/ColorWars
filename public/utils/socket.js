@@ -22,8 +22,6 @@ webSocket.onmessage = (event) => {
 
     // Nascondi il contenuto principale della pagina
     document.getElementById("mainContent").style.display = "none";
-
-    // Puoi aggiungere ulteriori azioni o stili CSS a seconda delle tue esigenze
   } else if (data.position) {
     if (data.position.tipo == 2) {
       let i = data.position.index;
