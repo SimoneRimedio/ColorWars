@@ -4,6 +4,7 @@ let sigla = ["p1", "p2", "p3", "p4"];
 let chi;
 let isClientDisabled = false; // Stato che indica se il client è disabilitato
 let gameStarted = false; // Stato che indica se il gioco è iniziato
+let clientID; // Variabile per memorizzare l'ID del client
 
 webSocket.onmessage = (event) => {
   const data = JSON.parse(event.data);
