@@ -26,3 +26,7 @@
 }
 #errorMessage {
 }
+#container {
+  display: none; /* Inizialmente nascondi la matrice */
+  pointer-events: none; /* Rendi non cliccabile la matrice */
+}

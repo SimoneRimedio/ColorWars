@@ -3,6 +3,7 @@ let el;
 let sigla = ["p1", "p2", "p3", "p4"];
 let chi;
 let isClientDisabled = false; // Stato che indica se il client è disabilitato
+let gameStarted = false; // Stato che indica se il gioco è iniziato
 
 webSocket.onmessage = (event) => {
   const data = JSON.parse(event.data);
@@ -48,11 +49,22 @@ webSocket.onmessage = (event) => {
     // Nascondi il bottone "Start" quando ricevi il messaggio "startTimer"
     if (data.startTimer) {
       hideStartButton();
+      gameStarted = true; // Imposta gameStarted su true quando il gioco inizia
     }
   } else if (data.tipo === "winner" && data.winnerID) {
     const winnerDisplay = document.getElementById("winnerDisplay");
     winnerDisplay.textContent = "Il giocatore " + data.winnerID + " ha vinto!";
     winnerDisplay.style.display = "block";
+  }
+  // Nuova condizione per gestire la matrice
+  if (gameStarted && !isClientDisabled) {
+    // Se il gioco è iniziato e il client non è disabilitato, rendi visibile e cliccabile la matrice
+    container.classList.remove("hidden");
+    container.style.pointerEvents = "auto";
+  } else {
+    // Altrimenti, nascondi e disabilita la matrice
+    container.classList.add("hidden");
+    container.style.pointerEvents = "none";
   }
 };
 
