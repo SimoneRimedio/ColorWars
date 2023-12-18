@@ -6,16 +6,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body ondragstart="return false" onselectstart="return false">
-    <div id="mainContent">
-      <p id="timerDisplay"></p>
-      <button id="startButton">Start</button>
-      <div id="winnerDisplay"></div>
-    </div>
+    <p id="timerDisplay"></p>
+    <button id="startButton">Start</button>
+    <div id="winnerDisplay"></div>
     <div id="errorMessage" style="display: none"></div>
-    <div id="container" class="hidden">
+    <div id="container" class="container"></div>
+    <p id="clientID"></p>
   </body>
 </html>
 <script src="./utils/matrix.js"></script>
-<script src="./utils/ClientCounter.js"></script>
 <script src="./utils/timer.js"></script>
 <script src="./utils/socket.js"></script>

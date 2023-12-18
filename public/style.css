@@ -1,3 +1,7 @@
+* {
+  text-decoration: none !important;
+  background-color: beige;
+}
 .oggetto {
   background-color: white;
   color: white;
@@ -6,11 +10,6 @@
   border: solid black;
   position: absolute;
 }
-* {
-  text-decoration: none !important;
-  background-color: beige;
-}
-
 .ClientsCounter {
   border: 1px solid black;
   position: absolute;

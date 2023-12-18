@@ -10,8 +10,9 @@ startButton.addEventListener("click", function () {
 });
 
 function updateTimerDisplay(seconds) {
+  const displayValue = seconds >= 0 ? seconds : 0;
   // Aggiorna il contenuto del paragrafo con il tempo rimanente
-  timerDisplay.textContent = seconds;
+  timerDisplay.textContent = displayValue;
 }
 
 function hideStartButton() {

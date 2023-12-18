@@ -8,6 +8,7 @@ let colori = ["black", "green", "blue", "red"];
 let clientElements = {};
 
 function handleConnection(ws, ws_server) {
+  //connessione
   quanti++;
   if (quanti > maxClients) {
     ws.send(
@@ -27,6 +28,9 @@ function handleConnection(ws, ws_server) {
   let s = "";
   for (const element of clients) s = s + element + " ";
   console.log("clients : " + s);
+
+  // Invia l'ID del client appena connesso
+  ws.send(JSON.stringify({ clientID: ws.id, tipo: "clientID" }));
 
   let position = {
     quanti: clients.length,

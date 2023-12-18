@@ -9,19 +9,13 @@ webSocket.onmessage = (event) => {
   const data = JSON.parse(event.data);
 
   const el = document.getElementsByName("A");
-  const el2 = document.getElementsByName("B");
 
   if (data.error) {
     // Se ricevi un messaggio di errore, mostra il div con il messaggio
     const errorMessageDiv = document.getElementById("errorMessage");
     errorMessageDiv.style.display = "block";
     errorMessageDiv.textContent = data.error;
-
-    // Disabilita l'interazione con la pagina
-    isClientDisabled = true;
-
-    // Nascondi il contenuto principale della pagina
-    document.getElementById("mainContent").style.display = "none";
+    isClientDisabled = true; // Disabilita l'interazione con la pagina
   } else if (data.position) {
     if (data.position.tipo == 2) {
       let i = data.position.index;
@@ -43,22 +37,22 @@ webSocket.onmessage = (event) => {
     const winnerDisplay = document.getElementById("winnerDisplay");
     winnerDisplay.textContent = "Il giocatore " + data.winnerID + " ha vinto!";
     winnerDisplay.style.display = "block";
-  } else if (data.clientID && data.tipo === "clientID") {
-    // Se ricevi l'ID del client dal server, memorizzalo nella variabile clientID
+  } else if (data.tipo === "clientID" && data.clientID) {
+    // Aggiorna l'ID del client
     clientID = data.clientID;
 
-    // Aggiorna il display del clientID in el2
-    el2.textContent = `Player ${clientID}`;
+    // Aggiorna il display del clientDisplay
+    updateClientDisplay();
   }
 
   // Nuova condizione per gestire la matrice
   if (gameStarted && !isClientDisabled) {
     // Se il gioco è iniziato e il client non è disabilitato, rendi visibile e cliccabile la matrice
-    container.classList.remove("hidden");
+    container.style.display = "block";
     container.style.pointerEvents = "auto";
   } else {
     // Altrimenti, nascondi e disabilita la matrice
-    container.classList.add("hidden");
+    container.style.display = "none";
     container.style.pointerEvents = "none";
   }
 };
@@ -75,4 +69,12 @@ for (i = 0; i < d.length; i++) {
       webSocket.send(data);
     });
   })(i);
+}
+
+// Funzione per aggiornare il clientDisplay
+function updateClientDisplay() {
+  const clientDisplay = document.getElementById("clientDisplay");
+  if (clientDisplay) {
+    clientDisplay.textContent = "Player " + clientID;
+  }
 }
