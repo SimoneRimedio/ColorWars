@@ -103,7 +103,7 @@ function handleConnection(ws, ws_server) {
   // gameLogic
 
   let timer;
-  let timerDuration = 20;
+  let timerDuration = 30;
 
   function startTimer() {
     let counter = timerDuration;
