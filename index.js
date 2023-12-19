@@ -1,21 +1,23 @@
-// index.js
-const http = require("http");
+const express = require("express");
 const { Server } = require("ws");
-const { handleRequest } = require("./server/routes");
+const { join } = require("path");
 const { handleConnection } = require("./server/websocketHandlers");
 
-// Creazione del server HTTP
-const server = http.createServer(handleRequest);
+const PORT = 3000;
 
-// Creazione del server WebSocket
-const ws_server = new Server({ server });
+const app = express();
+const ws_server = new Server({ port: PORT });
+
+app.get("/", (req, res) => {
+  app.use(express.static(join(dirname, "client/css")));
+  app.use(express.static(join(dirname, "client/utils")));
+  res.sendFile(join(__dirname, "client", "index.html"));
+});
 
 ws_server.on("connection", (ws) => {
   handleConnection(ws, ws_server);
 });
 
-// Avvio del server HTTP
-const PORT = 3000;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
