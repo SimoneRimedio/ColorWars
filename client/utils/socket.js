@@ -36,7 +36,8 @@ webSocket.onmessage = (event) => {
     }
   } else if (data.tipo === "winner" && data.winnerID) {
     const winnerDisplay = document.getElementById("winnerDisplay");
-    winnerDisplay.textContent = "Il giocatore " + data.winnerID + " ha vinto!";
+    winnerDisplay.textContent =
+      "Il giocatore\t\t\t\t " + data.winnerID + "\t\t\t\t ha vinto!";
     winnerDisplay.style.display = "block";
   } else if (data.tipo === "clientID" && data.clientID) {
     // Aggiorna l'ID del client
@@ -49,7 +50,7 @@ webSocket.onmessage = (event) => {
   // Nuova condizione per gestire la matrice
   if (gameStarted && !isClientDisabled) {
     // Se il gioco è iniziato e il client non è disabilitato, rendi visibile e cliccabile la matrice
-    container.style.display = "block";
+    container.style.display = "grid";
     container.style.pointerEvents = "auto";
   } else {
     // Altrimenti, nascondi e disabilita la matrice
@@ -76,6 +77,14 @@ for (i = 0; i < d.length; i++) {
 function updateClientDisplay() {
   const clientDisplay = document.getElementById("clientDisplay");
   if (clientDisplay) {
-    clientDisplay.textContent = "Player " + clientID;
+    clientDisplay.textContent = "Player\t\t\t" + clientID;
   }
 }
+
+document.getElementById("hoverDiv").addEventListener("mouseover", function () {
+  document.getElementById("customText").style.display = "block";
+});
+
+document.getElementById("hoverDiv").addEventListener("mouseout", function () {
+  document.getElementById("customText").style.display = "none";
+});

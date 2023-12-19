@@ -6,13 +6,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   </head>
   <body ondragstart="return false" onselectstart="return false">
-    <h1>Color Wars</h1>
+    <div id="titleContainer">
+      <h1>Color Wars</h1>
+      <h2>By Simone Rimedio</h2>
+    </div>
     <p id="timerDisplay"></p>
     <button id="startButton">Start</button>
     <div id="winnerDisplay"></div>
     <div id="errorMessage" style="display: none"></div>
-    <div id="container" class="container"></div>
-    <p id="clientID"></p>
+    <div id="clientDisplay"></div>
+    <div id="hoverDiv">
+      Come si Gioca
+      <div id="customText">
+        Disponibile fino a 4 giocatori !<br><br>
+        Per vincere occorre conquistare più zone possibili 
+        entro lo scadere del tempo.<br><br>Fai attenzione gli altri giocatori possono prendere 
+        le zone che hai già conquistato. <br><br>Buon Divertimento !!!
+      </div>
+    </div>
   </body>
 </html>
 <script src="./utils/matrix.js"></script>

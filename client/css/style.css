@@ -1,4 +1,7 @@
-/* Reset CSS */
+/* CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+
 * {
   text-decoration: none !important;
   background-color: beige;
@@ -11,31 +14,43 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Cambiato a 'center' */
   height: 100vh;
-  font-family: 'YourFont', sans-serif; /* Aggiungi il tuo font preferito qui */
+  font-family: 'Poppins', sans-serif;
+}
+
+#titleContainer {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 h1 {
-  margin-top: 20px;
-  font-size: 24px; /* Modifica la dimensione del font a tuo piacimento */
+  font-size: 60px;
+}
+
+h2 {
+  font-size: 13px;
 }
 
 #startButton {
-  margin: 20px 0;
   padding: 10px 20px;
-  font-size: 18px; /* Modifica la dimensione del font a tuo piacimento */
-  background-color: #4CAF50; /* Colore di sfondo verde */
+  font-size: 18px;
+  background-color: #4CAF50;
   color: white;
   border: none;
   cursor: pointer;
   position: absolute;
-  margin-top: 200px;
+  top: 50%;
 }
 
 #timerDisplay {
-  margin-bottom: 20px;
-  font-size: 18px; /* Modifica la dimensione del font a tuo piacimento */
+  font-size: 18px;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%); /* Modificato per centrare orizzontalmente */
 }
 
 #errorMessage {
@@ -50,20 +65,66 @@ h1 {
   z-index: 1;
 }
 
-#container {
-  display: none;
+.container {
   pointer-events: none;
+  grid-template-columns: repeat(20, 33px);
+  grid-template-rows: repeat(15, 33px);
+  grid-gap: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 .oggetto {
   background-color: white;
   color: white;
   text-align: center;
   border-width: 1px;
   border: solid black;
-  position: absolute;
+  height: 30px;
+  width: 30px;
 }
 
-#clientID{
+#clientDisplay {
   color: black;
-  margin-top: 10px;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+}
+
+#winnerDisplay {
+  display: none;
+  position: absolute;
+  bottom: 10%;
+  right: 50%;
+  transform: translate(50%, -50%); /* Modificato per centrare verticalmente e orizzontalmente */
+  font-size: 24px;
+  color: green;
+}
+
+#hoverDiv {
+  position: fixed;
+  top: 50%;
+  left: 90%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+#customText {
+  display: none;
+  width: 450px;
+  height: 250px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px;
+  text-align: center;
 }
