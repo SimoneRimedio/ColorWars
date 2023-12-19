@@ -9,8 +9,8 @@ const app = express();
 const ws_server = new Server({ port: PORT });
 
 app.get("/", (req, res) => {
-  app.use(express.static(join(dirname, "client/css")));
-  app.use(express.static(join(dirname, "client/utils")));
+  app.use(express.static(join(__dirname, "client/css")));
+  app.use(express.static(join(__dirname, "client/utils")));
   res.sendFile(join(__dirname, "client", "index.html"));
 });
 
