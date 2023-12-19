@@ -3,7 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
 
 * {
-  text-decoration: none !important;
   background-color: beige;
   margin: 0;
   padding: 0;
@@ -43,10 +42,13 @@ h2 {
   cursor: pointer;
   position: absolute;
   top: 50%;
+  width: 10%;
+  height: auto;
+  text-align: center;
 }
 
 #timerDisplay {
-  font-size: 18px;
+  font-size: 24px;
   position: absolute;
   bottom: 5%;
   left: 50%;
@@ -74,6 +76,7 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-decoration: none !important;
 }
 
 .oggetto {
@@ -110,9 +113,10 @@ h2 {
   left: 90%;
   transform: translateX(-50%);
   padding: 10px;
-  background-color: #4CAF50;
-  color: white;
   cursor: pointer;
+  color: black;
+  font-size: 20px;
+  text-decoration: underline;
 }
 
 #customText {

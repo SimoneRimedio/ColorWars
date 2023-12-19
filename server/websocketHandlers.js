@@ -3,7 +3,7 @@
 let quanti = 0;
 let maxClients = 4;
 let clients = [];
-let colori = ["black", "green", "blue", "red"];
+let colori = ["orange", "green", "blue", "red"];
 
 let clientElements = {};
 
