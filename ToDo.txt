@@ -1,4 +1,0 @@
-
-fare in modo che start si avvii solo con almeno 2 client connessi
-creare e gestire un bottone di riavvio
-
